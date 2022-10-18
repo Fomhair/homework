@@ -4,9 +4,12 @@
 // 78 -> третьей цифры нет
 // 32679 -> 6
 
-// Слегка модифицированная функция из предыдущей задачи.
+// Слегка модифицированная функция из предыдущей задачи. Добавлена поддержка отрицательных чисел.
 void DigitByPosition(int baseNum = 10) {
   int num = requestNum();
+  if (num < 0) {
+    num *= -1;
+  }
   if (num < baseNum) {
     Console.WriteLine(num + " -> такого числа нет");
   } else {
@@ -24,10 +27,6 @@ int requestNum(string msg = "Enter number: ") {
   // Проверка, является ли вводимое значение числом
   if (int.TryParse(value, out digit)) { 
     digit = Convert.ToInt32(value);
-    // Добавил поддержку отрицательных чисел
-    if (digit < 0) {
-      digit *= -1;
-    }
     return digit;
   } else {
     Console.WriteLine("Not a number or too long");

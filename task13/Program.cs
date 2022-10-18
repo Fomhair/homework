@@ -13,7 +13,7 @@ void DigitByPosition(int baseNum = 10) {
   if (num < baseNum) {
     Console.WriteLine(num + " -> такого числа нет");
   } else {
-    int result = ((num - (num % baseNum)) / baseNum ) % 10;
+    int result = (num / baseNum ) % 10;
     Console.WriteLine(num + " -> " + result);
   }
 }

@@ -8,7 +8,7 @@
 // Изменяя значение baseNum (1, 10, 100, 1000, ...) можно получить цифру в соответствующей позиции
 void DigitByPosition(int baseNum = 10) {
   int num = requestNum();
-  int result = ((num - (num % baseNum)) / baseNum ) % 10;
+  int result = (num / baseNum ) % 10;
   Console.WriteLine(num + " -> " + result);
 }
 

@@ -123,7 +123,7 @@ namespace Lesson.Distance3D
     }
 
     // Запрос массива строковых значенийб печечисленных через пробел или через запятую
-    public static string[] RequestStringArr(int length = 3, string msg = "Enter values separated by space or commas: ")
+    public static string[] RequestStringArr(string msg = "Enter values separated by space or commas: ", int length = 3)
     {
       Console.Write(msg);
 
@@ -168,10 +168,11 @@ namespace Lesson.Distance3D
       Console.WriteLine("Enter \"q\" to exit");
       while(true)
       {
-        string[] str = RequestStringArr();
+        string[] str = RequestStringArr("Enter coordinates (x, y, z) separated by space or commas: ");
         if (str[0].ToLower() == "q") break; // выход из программы
 
-        PointPosition.points.Add(new PointPosition());
+        PointPosition.points.Add(new PointPosition()); // Инициализация списка нулевым элементом
+        PointPosition.points.Add(PointPosition.SetPosition(str)); // Добавление первой ручной координаты
         // Задаём список точек
         while(true)
         {
@@ -183,7 +184,7 @@ namespace Lesson.Distance3D
           }
           else
           {
-            str = RequestStringArr();
+            str = RequestStringArr("Enter another coordinates: ");
             PointPosition.points.Add(PointPosition.SetPosition(str));
           }
         }

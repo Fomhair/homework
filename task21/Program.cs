@@ -169,16 +169,16 @@ namespace Lesson.Distance3D
         points.Add(PointPosition.SetPosition(str));
         while(true)
         {
-          Console.WriteLine("Press enter to complete or \"y\" to set another position");
+          Console.WriteLine("Press Enter to set another position or Esc to complete");
           ConsoleKeyInfo key = Console.ReadKey(true);
-          if(key.Key == ConsoleKey.Y)
+          if(key.Key == ConsoleKey.Escape)
           {
-            str = RequestStringArr();
-            points.Add(PointPosition.SetPosition(str));
+            break;
           }
           else
           {
-            break;
+            str = RequestStringArr();
+            points.Add(PointPosition.SetPosition(str));
           }
         }
 

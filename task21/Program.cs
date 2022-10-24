@@ -10,6 +10,7 @@ namespace Lesson.Distance3D
   public class PointPosition
   {
     // Список идентификаторов точек
+    public static List<PointPosition> points = new List<PointPosition> {};
     private static List<string> idList = new List<string>{};
     public string id;
     public int x;
@@ -37,12 +38,18 @@ namespace Lesson.Distance3D
         {
           coords[i] = Lesson.Distance3D.Program.StringToInt(str[i]);
         }
-        PointPosition a = new PointPosition(coords[0], coords[1], coords[2]);
+        PointPosition a = new PointPosition(
+          points[points.Count-1].x + coords[0], 
+          points[points.Count-1].y + coords[1], 
+          points[points.Count-1].z + coords[2]);
         return a;
       }
       else
       {
-        PointPosition a = new PointPosition();
+        PointPosition a = new PointPosition(
+          points[points.Count-2].x, 
+          points[points.Count-1].y, 
+          points[points.Count-1].z);
         return a;
       }
     }
@@ -77,6 +84,7 @@ namespace Lesson.Distance3D
     // Очищает список сгенерированных ID 
     public static void ClearIdList()
     {
+      points.Clear();
       idList.Clear();
     }
   }
@@ -163,10 +171,8 @@ namespace Lesson.Distance3D
         string[] str = RequestStringArr();
         if (str[0].ToLower() == "q") break; // выход из программы
 
-
+        PointPosition.points.Add(new PointPosition());
         // Задаём список точек
-        List<PointPosition> points = new List<PointPosition> {};
-        points.Add(PointPosition.SetPosition(str));
         while(true)
         {
           Console.WriteLine("Press Enter to set another position or Esc to complete");
@@ -178,7 +184,7 @@ namespace Lesson.Distance3D
           else
           {
             str = RequestStringArr();
-            points.Add(PointPosition.SetPosition(str));
+            PointPosition.points.Add(PointPosition.SetPosition(str));
           }
         }
 
@@ -186,14 +192,14 @@ namespace Lesson.Distance3D
         double fullDistance = 0.0;
 
         // Выводим точки с расстояниями между ними
-        points[0].ShowPosition();
-        for(int i = 1; i < points.Count; i++)
+        PointPosition.points[0].ShowPosition();
+        for(int i = 1; i < PointPosition.points.Count; i++)
         {
-          double distance = Distance.MeasureDistance(points[i-1], points[i]);
+          double distance = Distance.MeasureDistance(PointPosition.points[i-1], PointPosition.points[i]);
           Console.ForegroundColor = ConsoleColor.Red;
           Console.Write("---{0}--- ", distance);
           Console.ForegroundColor = ConsoleColor.White;
-          points[i].ShowPosition();
+          PointPosition.points[i].ShowPosition();
           fullDistance += distance;
         }
         Console.WriteLine(string.Empty);  

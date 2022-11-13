@@ -153,7 +153,7 @@ namespace Lesson.Distance3D
       int result;
       if(int.TryParse(str, out result))
       {
-        result = Convert.ToInt32(str);
+        // result = Convert.ToInt32(str); - эта строка не нужна, так как out уже присваивает распарсенное значение в переменную result
         return result;
       }
       else

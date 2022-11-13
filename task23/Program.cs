@@ -46,7 +46,6 @@ namespace Lesson.Progression
           {
             result[i] = Convert.ToInt64(Math.Pow(i, 3));
             Console.Write(result[i] + " ");
-            i++;
           }
           Console.WriteLine(string.Empty);
         }

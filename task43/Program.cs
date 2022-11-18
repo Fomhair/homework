@@ -87,7 +87,7 @@ namespace Lesson.Math
       return res;
     }
 
-    public static bool Functions(int x, int y, double[] args)
+    public static bool Functions(double x, double y, double[] args)
     {
       int functionsNumber = 4;
       double tmp = .0;
@@ -111,33 +111,33 @@ namespace Lesson.Math
           return y == System.Math.Round(tmp);
       }
     }
-    public static double Function0(int x, double[] args)
+    public static double Function0(double x, double[] args)
     {
       double k = args[1];
       double a = args[2];
       double b = args[3];
       return (x+a)*(x+a)*(x+a)/k+b;
     }
-    public static double Function1(int x, double[] args)
+    public static double Function1(double x, double[] args)
     {
       double k = args[1];
       double a = args[2];
       double b = args[3];
       return k*(x+a)+b;
     }
-    public static double Function2(int x, double[] args)
+    public static double Function2(double x, double[] args)
     {
       double k = args[1];
       double a = args[2];
       double b = args[3];
       return (x+a)*(x+a)/k+b;
     }
-    public static double Function3(int x, double[] args)
+    public static double Function3(double x, double[] args)
     {
       double k = args[1];
       double a = args[2];
       double b = args[3];
-      if(x != 0) {
+      if(x != .0) {
         return k/(x+a) + b;
       }
       else
@@ -145,7 +145,7 @@ namespace Lesson.Math
         return .0;
       }
     }
-    public static double Function4(int x, double[] args)
+    public static double Function4(double x, double[] args)
     {
       double k = args[1];
       double a = args[2];
@@ -230,17 +230,20 @@ namespace Lesson.Math
     }
     public void FillGraph(List<double[]> arguments) 
     {
-
-      for (int i = 0; i < this.width; i++)
+      double width = (double)this.width;
+      double height = (double)this.height;
+      for (double i = 0.0; i < width; i += 0.1)
       {
-        for (int j = 0; j < this.height; j++)
+        for (double j = 0.0; j < height; j += 0.1)
         {
-          DrawGridElement(i, j);
-          int offsetX = this.width/2 - (this.width-this.height)/2;
-          int offsetY = this.height/2 + (this.width-this.height)/2;
-          int x = offsetX - j;
-          int y = -(i - offsetY);
-          DrawGraphic(i, j, x, y, arguments);
+          DrawGridElement((int)i, (int)j);
+          double offsetX = width/2.0 - (width-height)/2.0;
+          double offsetY = height/2.0 + (width-height)/2.0;
+          double x = offsetX - j;
+          double y = -(i - offsetY);
+          x = System.Math.Floor(x);
+          y = System.Math.Round(y);
+          DrawGraphic((int)i, (int)j, x, y, arguments);
         }
       }
     }
@@ -255,7 +258,7 @@ namespace Lesson.Math
         this.coords[i,j,0] = 0;
       }
     }
-    private void DrawGraphic(int i, int j, int x, int y, List<double[]> arguments)
+    private void DrawGraphic(int i, int j, double x, double y, List<double[]> arguments)
     {
       bool[] functionResults = new bool[arguments.Count];
       int count = 0;

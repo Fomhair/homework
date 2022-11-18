@@ -87,32 +87,70 @@ namespace Lesson.Math
       return res;
     }
 
-    public static bool Function(int x, int y, int[] args)
+    public static bool Functions(int x, int y, double[] args)
     {
       int functionsNumber = 4;
-      int k = args[1];
-      int a = args[2];
-      int b = args[3];
-      switch(args[0])
+      double tmp = .0;
+      switch((int)args[0])
       {
         case 0:
         default:
-          return y == (x+a)*(x+a)*(x+a)/k+b;
+          tmp = Function0(x, args);
+          return y == System.Math.Round(tmp);
         case 1:
-          
-          return y == k*(x+a)+b;
+          tmp = Function1(x, args);
+          return y == System.Math.Round(tmp);
         case 2:
-          return y == (x+a)*(x+a)/k+b;
+          tmp = Function2(x, args);
+          return y == System.Math.Round(tmp);
         case 3:
-          if(x != 0) 
-          {
-            return y == k/(x+a) + b;
-          }
-          else
-          {
-            return false;
-          }
+          tmp = Function3(x, args);
+          return y == System.Math.Round(tmp);
+        case 4:
+          tmp = Function4(x, args);
+          return y == System.Math.Round(tmp);
       }
+    }
+    public static double Function0(int x, double[] args)
+    {
+      double k = args[1];
+      double a = args[2];
+      double b = args[3];
+      return (x+a)*(x+a)*(x+a)/k+b;
+    }
+    public static double Function1(int x, double[] args)
+    {
+      double k = args[1];
+      double a = args[2];
+      double b = args[3];
+      return k*(x+a)+b;
+    }
+    public static double Function2(int x, double[] args)
+    {
+      double k = args[1];
+      double a = args[2];
+      double b = args[3];
+      return (x+a)*(x+a)/k+b;
+    }
+    public static double Function3(int x, double[] args)
+    {
+      double k = args[1];
+      double a = args[2];
+      double b = args[3];
+      if(x != 0) {
+        return k/(x+a) + b;
+      }
+      else
+      {
+        return .0;
+      }
+    }
+    public static double Function4(int x, double[] args)
+    {
+      double k = args[1];
+      double a = args[2];
+      double b = args[3];
+      return k*System.Math.Cos(x+a)+b;
     }
   }
 
@@ -178,7 +216,9 @@ namespace Lesson.Math
           }
           else if(this.coords[i,j,0] == 2)
           {
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("88");
+            Console.ForegroundColor = ConsoleColor.White;
           }
           else if(this.coords[i,j,0] == 3)
           {
@@ -188,7 +228,7 @@ namespace Lesson.Math
         Console.Write("\n");
       }
     }
-    public void FillGraph(List<int[]> arguments) 
+    public void FillGraph(List<double[]> arguments) 
     {
 
       for (int i = 0; i < this.width; i++)
@@ -215,13 +255,13 @@ namespace Lesson.Math
         this.coords[i,j,0] = 0;
       }
     }
-    private void DrawGraphic(int i, int j, int x, int y, List<int[]> arguments)
+    private void DrawGraphic(int i, int j, int x, int y, List<double[]> arguments)
     {
       bool[] functionResults = new bool[arguments.Count];
       int count = 0;
-      foreach(int[] args in arguments) 
+      foreach(double[] args in arguments) 
       {
-        functionResults[count] = MathFunction.Function(x, y, args);
+        functionResults[count] = MathFunction.Functions(x, y, args);
         if(functionResults[count]) this.coords[i,j,0] = 2;
         count++;
       }
@@ -269,18 +309,17 @@ namespace Lesson.Math
     {
       while (true)
       {
-        List<int[]> arguments = new List<int[]> {};
-        int[] args1 = {0, 16, 0, 0};
-        arguments.Add(args1);
-        int[] args2 = {1, 10, 0, 0};
-        arguments.Add(args2);
-        int[] args3 = {2, 2, 0, 0};
-        arguments.Add(args3);
-        int[] args4 = {3, 160, 0, 0};
-        arguments.Add(args4);
+        List<double[]> arguments = new List<double[]> {};
+        
+        double[] demo0 = {0.0, -16.0, 0.0, 0.0};
+        arguments.Add(demo0);
+        double[] demo1 = {4.0, 2.0, 0.0, 0.0};
+        arguments.Add(demo1);
         Graphic graph1 = new Graphic(60,100);
         graph1.FillGraph(arguments);
         graph1.ShowGraph();
+
+
 
         if(IOfunc.Exit(IOfunc.RequestString("\nPress enter to generate numbers or q to exit "))) break;
       }

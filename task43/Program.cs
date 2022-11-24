@@ -430,6 +430,7 @@ namespace Lesson.Math
       }  
     }
 
+
     static void PrintIntersections(List<double[]> intersections)
     {
       Console.WriteLine("\nSorry! For this moment program only shows line intersections.\n");

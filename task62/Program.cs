@@ -303,24 +303,26 @@ namespace Lesson.Math
     {
       while (true)
       {
-        // List<string[]> descriptions = new List<string[]> {};
+        List<string[]> descriptions = new List<string[]> {};
         try
         {
-        //   Action<int[,]> AddToDescriptions = (int[,] rndNums) => {
-        //     for(int i = 0; i < rndNums.GetLength(0); i++)
-        //     {
-        //       string[] strRow = new string[rndNums.GetLength(1)];
-        //       for(int j = 0; j < rndNums.GetLength(1); j++)
-        //       {
-        //         strRow[j] = rndNums[i,j].ToString() + " ";
-        //       }
-        //       descriptions.Add(strRow);
-        //     }
-        //     foreach(string[] el in descriptions)
-        //     {
-        //       IOfunc.Description(el);
-        //     }
-        //   };
+          Action<int[,]> AddToDescriptions = (int[,] rndNums) => {
+            for(int i = 0; i < rndNums.GetLength(0); i++)
+            {
+              string[] strRow = new string[rndNums.GetLength(1)];
+              for(int j = 0; j < rndNums.GetLength(1); j++)
+              {
+                if(rndNums[i,j] < 10) strRow[j] = rndNums[i,j].ToString() + "   ";
+                else if(rndNums[i,j] < 100) strRow[j] = rndNums[i,j].ToString() + "  ";
+                else strRow[j] = rndNums[i,j].ToString() + " ";
+              }
+              descriptions.Add(strRow);
+            }
+            foreach(string[] el in descriptions)
+            {
+              IOfunc.Description(el);
+            }
+          };
           
           int n, m;
           n = Generator.RandomNumber(min: 3, max: 10);
@@ -331,6 +333,7 @@ namespace Lesson.Math
           IOfunc.Description(new string[] {"\nField has ", arguments[0].ToString(), " rows and ", arguments[1].ToString(), " columns. Generate..."});
           int[,] matrix = new int[arguments[0],arguments[1]];
           Console.Clear();
+          Console.CursorVisible = false;
 
 
           int startHorizontalPos = 0;
@@ -369,7 +372,10 @@ namespace Lesson.Math
             value = tmp[3];
           }
 
+          AddToDescriptions(matrix);
+
           Console.WriteLine("\nPress enter to try again or q to exit ");
+          Console.CursorVisible = true;
           if(IOfunc.Exit()) break;
         }
         catch(IndexOutOfRangeException e)
